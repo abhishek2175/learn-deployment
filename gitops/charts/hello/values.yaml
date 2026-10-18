@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/stefanprodan/podinfo
+  tag: ""            # defaults to .Chart.AppVersion
+
+env: base
+clusterName: unknown # injected by the ApplicationSet from Terraform
+message: "Hello from GitOps"
+color: "#34577c"
+
+ingress:
+  enabled: true
+  className: traefik
+  host: hello.localtest.me
+
+resources:
+  requests: { cpu: 10m, memory: 32Mi }
+  limits:   { memory: 128Mi }

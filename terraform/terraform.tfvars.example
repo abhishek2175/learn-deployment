@@ -1,0 +1,4 @@
+gitops_repo_url = "https://github.com/<your-user>/learn-deployment.git"
+# gitops_revision      = "main"
+# argocd_chart_version = "9.0.0"
+# http_port            = 8080   # if something already uses :80

@@ -1,0 +1,7 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+# kubeconfig the kind provider writes next to the Terraform files
+terraform/*-config
+.DS_Store

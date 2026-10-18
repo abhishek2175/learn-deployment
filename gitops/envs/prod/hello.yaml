@@ -1,0 +1,9 @@
+env: prod
+replicaCount: 2
+message: "Hello from PROD"
+color: "#9c2a2a"
+ingress:
+  host: hello-prod.localtest.me
+resources:
+  requests: { cpu: 50m, memory: 64Mi }
+  limits:   { memory: 256Mi }

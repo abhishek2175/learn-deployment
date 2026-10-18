@@ -1,0 +1,5 @@
+env: dev
+message: "Hello from DEV"
+color: "#2f7d32"
+ingress:
+  host: hello-dev.localtest.me

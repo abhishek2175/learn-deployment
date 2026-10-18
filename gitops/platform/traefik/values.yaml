@@ -1,0 +1,22 @@
+# Runs on the kind node labelled ingress-ready=true and binds host port 80,
+# which kind maps to your Mac (see terraform/main.tf extra_port_mappings).
+deployment:
+  replicas: 1
+nodeSelector:
+  ingress-ready: "true"
+tolerations:
+  - key: node-role.kubernetes.io/control-plane
+    operator: Exists
+    effect: NoSchedule
+ports:
+  web:
+    hostPort: 80
+service:
+  type: ClusterIP
+ingressClass:
+  enabled: true
+  isDefaultClass: true
+providers:
+  kubernetesIngress:
+    publishedService:
+      enabled: false
