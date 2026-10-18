@@ -20,3 +20,7 @@ providers:
   kubernetesIngress:
     publishedService:
       enabled: false
+# Report 127.0.0.1 as the Ingress address so Argo CD marks Ingresses Healthy
+# (it waits for status.loadBalancer, which a ClusterIP service never gets).
+additionalArguments:
+  - --providers.kubernetesingress.ingressendpoint.ip=127.0.0.1
