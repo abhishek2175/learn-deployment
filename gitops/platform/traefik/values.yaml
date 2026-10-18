@@ -2,6 +2,12 @@
 # which kind maps to your Mac (see terraform/main.tf extra_port_mappings).
 deployment:
   replicas: 1
+# Single node + hostPort 80: the old pod must stop before the new one can bind the port.
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 0
 nodeSelector:
   ingress-ready: "true"
 tolerations:
