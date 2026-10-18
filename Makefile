@@ -9,7 +9,7 @@ help: ## Show targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
 
 tools: ## Install missing CLIs with Homebrew
-	brew install kind terraform argocd kustomize
+	brew install kind argocd kustomize hashicorp/tap/terraform
 
 lint: ## Validate Helm chart, Kustomize overlays and Terraform offline
 	helm lint gitops/charts/hello -f gitops/envs/dev/hello.yaml
