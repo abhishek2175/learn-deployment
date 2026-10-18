@@ -18,7 +18,8 @@ ports:
   web:
     hostPort: 80
 service:
-  type: ClusterIP
+  spec:
+    type: ClusterIP   # kind has no cloud LB; a pending LoadBalancer keeps Argo CD 'Progressing'
 ingressClass:
   enabled: true
   isDefaultClass: true
