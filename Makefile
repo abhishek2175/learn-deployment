@@ -3,7 +3,7 @@ CLUSTER   := learn-deployment
 KUBECTX   := kind-$(CLUSTER)
 K         := kubectl --context $(KUBECTX)
 
-.PHONY: help tools lint up down status password ui open repo
+.PHONY: help tools lint up down status password ui open repo cli
 
 help: ## Show targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
@@ -44,6 +44,11 @@ password: ## Print Argo CD admin password
 
 ui: ## Port-forward Argo CD UI to localhost:8081 (before Traefik is up)
 	$(K) -n argocd port-forward svc/argocd-server 8081:80
+
+cli: ## Log the argocd CLI in (via port-forward); then: argocd app list
+	argocd login --port-forward --port-forward-namespace argocd --plaintext --kube-context $(KUBECTX) \
+	  --username admin --password "$$($(K) -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)"
+	@echo 'export ARGOCD_OPTS="--port-forward --port-forward-namespace argocd --plaintext --kube-context $(KUBECTX)"'
 
 open: ## Open all the sample URLs
 	open http://argocd.localtest.me http://hello-dev.localtest.me http://hello-prod.localtest.me \
